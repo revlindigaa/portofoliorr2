@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Digital Kelas XII - Revlin Diga Briliantne (RPL / Informatika)</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Fira Code -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                            900: '#831843',
+                        },
+                        tech: {
+                            dark: '#0f172a',
+                            card: '#1e293b',
+                            accent: '#f472b6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --primary-color: #ec4899;
+            --secondary-color: #0f172a;
+            --accent-color: #f472b6;
+            --bg-light: #fff5f7;
+            --text-dark: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Glassmorphism utilities */
+        .glass-header {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(251, 207, 232, 0.6);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(51, 65, 85, 0.8);
+        }
+
+        /* Scrollbar custom */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f472b6;
+        }
+
+        .nav-link.active {
+            color: #f472b6;
+            font-weight: 600;
+            border-bottom: 2px solid #f472b6;
+        }
+
+        /* Animation Keyframes */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .pulse-glow {
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-pink-50/50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col justify-between">
+
+    <div class="bg-slate-950 text-slate-400 text-xs px-4 py-1.5 flex justify-between items-center border-b border-slate-800 font-mono z-50">
+        <div class="flex items-center space-x-2 overflow-hidden">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-500"></span>
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-green-500"></span>
+            <span class="text-slate-500 hidden sm:inline ml-2">Struktur Berkas:</span>
+            <span id="current-file-path" class="text-pink-300 font-semibold truncate">portofolio-revlin/index.html</span>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button onclick="toggleFolderStructureModal()" class="hover:text-pink-300 flex items-center gap-1 transition-colors">
+                <i class="fa-solid fa-folder-tree"></i> <span class="hidden md:inline">Inspektor Struktur</span>
+            </button>
+            <button onclick="toggleDeploymentModal()" class="hover:text-pink-300 flex items-center gap-1 transition-colors">
+                <i class="fa-solid fa-cloud-arrow-up"></i> <span class="hidden md:inline">Panduan Deploy</span>
+            </button>
+            <button id="theme-toggle" class="hover:text-yellow-400 text-slate-300 transition-colors" title="Ubah Tema">
+                <i class="fa-solid fa-moon text-sm"></i>
+            </button>
+        </div>
+    </div>
+
+    <header class="sticky top-0 z-40 glass-header text-white border-b border-slate-800 shadow-lg">
+3.        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand / Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="navigateTo('index.html')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-500 to-rose-300 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-pink-500/30">
+                        RD
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-pink-100 to-pink-300 bg-clip-text text-transparent">Revlin.Diga</span>
+                        <span class="block text-[10px] text-pink-300 uppercase tracking-widest font-semibold">Portofolio Informatika XII</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Menu -->
+                <nav class="hidden lg:flex space-x-1 items-center">
+                    <button onclick="navigateTo('index.html')" class="nav-btn nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-pink-300 transition-colors active" data-path="index.html">
+                        <i class="fa-solid fa-house mr-1.5"></i>Beranda
+                    </button>
+                    <button onclick="navigateTo('pages/tentang.html')" class="nav-btn nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-pink-300 transition-colors" data-path="pages/tentang.html">
+                        <i class="fa-solid fa-user mr-1.5"></i>Tentang Saya
+                    </button>
+                    <button onclick="navigateTo('pages/jaringan.html')" class="nav-btn nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-pink-300 transition-colors" data-path="pages/jaringan.html">
+                        <i class="fa-solid fa-network-wired mr-1.5"></i>Jaringan Komputer
+                    </button>
+                    <button onclick="navigateTo('pages/iot-arduino.html')" class="nav-btn nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-pink-300 transition-colors" data-path="pages/iot-arduino.html">
+                        <i class="fa-solid fa-microchip mr-1.5"></i>IoT & Arduino
+                    </button>
+                    <button onclick="navigateTo('pages/karya-proyek.html')" class="nav-btn nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-pink-300 transition-colors" data-path="pages/karya-proyek.html">
+                        <i class="fa-solid fa-lightbulb mr-1.5"></i>Galeri Proyek
+                    </button>
+                    <button onclick="navigateTo('pages/kontak.html')" class="nav-btn nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-pink-300 transition-colors" data-path="pages/kontak.html">
+                        <i class="fa-solid fa-envelope mr-1.5"></i>Kontak
+                    </button>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex lg:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none p-2 rounded-md">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-4 space-y-1">
+            <button onclick="navigateTo('index.html')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-slate-800">
+                <i class="fa-solid fa-house w-6 text-pink-400"></i>Beranda
+            </button>
+            <button onclick="navigateTo('pages/tentang.html')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">
+                <i class="fa-solid fa-user w-6 text-pink-400"></i>Tentang Saya
+            </button>
+            <button onclick="navigateTo('pages/jaringan.html')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">
+                <i class="fa-solid fa-network-wired w-6 text-pink-400"></i>Jaringan Komputer
+            </button>
+            <button onclick="navigateTo('pages/iot-arduino.html')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">
+                <i class="fa-solid fa-microchip w-6 text-pink-400"></i>IoT & Arduino
+            </button>
+            <button onclick="navigateTo('pages/karya-proyek.html')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">
+                <i class="fa-solid fa-lightbulb w-6 text-pink-400"></i>Galeri Proyek
+            </button>
+            <button onclick="navigateTo('pages/kontak.html')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">
+                <i class="fa-solid fa-envelope w-6 text-pink-400"></i>Kontak
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <section id="sec-index" class="page-section space-y-12">
+            <!-- Hero Banner Section -->
+            <div class="relative overflow-hidden rounded-3xl bg-slate-900 border border-pink-200/40 text-white p-8 sm:p-12 shadow-2xl">
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-pink-500/20 blur-3xl pulse-glow"></div>
+                <div class="relative z-10 grid md:grid-cols-3 gap-8 items-center">
+                    <div class="md:col-span-2 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/20 border border-pink-500/30 text-pink-300 text-xs font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-pink-400 animate-ping"></span>
+                            Siswa XII RPL / Informatika
+                        </div>
+                        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                            Halo, Saya <span class="bg-gradient-to-r from-pink-300 via-rose-300 to-pink-500 bg-clip-text text-transparent">Revlin Diga Briliantne</span>
+                        </h1>
+                        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                            Selamat datang di Portofolio Digital Kelas XII. Halaman ini berfungsi sebagai etalase showcase karya, simulasi laboratorium, serta jurnal modul pembelajaran Rekayasa Perangkat Lunak dan Informatika sepanjang tahun ajaran.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <button onclick="navigateTo('pages/karya-proyek.html')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-500 hover:to-rose-400 text-white font-semibold text-sm shadow-lg shadow-pink-600/30 transition transform hover:-translate-y-0.5">
+                                <i class="fa-solid fa-rocket mr-2"></i>Lihat Proyek Saya
+                            </button>
+                            <button onclick="navigateTo('pages/kontak.html')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition">
+                                <i class="fa-solid fa-paper-plane mr-2"></i>Hubungi Saya
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Photo Profile Container -->
+                    <div class="flex justify-center">
+                        <div class="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden p-1.5 bg-gradient-to-tr from-pink-500 to-rose-300 shadow-2xl">
+                            <img src="revlin.jpg" alt="Foto Profil Revlin Diga Briliantne" class="w-full h-full object-cover rounded-xl bg-slate-800" onerror="this.src='https://placehold.co/400x400/0f172a/f472b6?text=Revlin+Diga'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Summary -->
+            <div class="space-y-4">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-code text-pink-500"></i> Ringkasan Keahlian Teknik
+                </h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <div class="glass-card p-4 rounded-2xl text-center space-y-2 transition hover:-translate-y-1 shadow-sm">
+                        <i class="fa-brands fa-html5 text-3xl text-orange-500"></i>
+                        <h3 class="font-bold text-sm">HTML5 Semantik</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center space-y-2 transition hover:-translate-y-1 shadow-sm">
+                        <i class="fa-brands fa-css3-alt text-3xl text-blue-500"></i>
+                        <h3 class="font-bold text-sm">CSS3 & Tailwind</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center space-y-2 transition hover:-translate-y-1 shadow-sm">
+                        <i class="fa-brands fa-js text-3xl text-yellow-400"></i>
+                        <h3 class="font-bold text-sm">JavaScript ES6</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center space-y-2 transition hover:-translate-y-1 shadow-sm">
+                        <i class="fa-solid fa-network-wired text-3xl text-cyan-400"></i>
+                        <h3 class="font-bold text-sm">Jaringan / Subnet</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center space-y-2 transition hover:-translate-y-1 shadow-sm">
+                        <i class="fa-solid fa-microchip text-3xl text-teal-400"></i>
+                        <h3 class="font-bold text-sm">Arduino C++</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center space-y-2 transition hover:-translate-y-1 shadow-sm">
+                        <i class="fa-solid fa-lightbulb text-3xl text-pink-400"></i>
+                        <h3 class="font-bold text-sm">Problem Solving</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-tentang" class="page-section space-y-8 hidden">
+            <div class="border-b border-pink-200 dark:border-slate-800 pb-4">
+                <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3">
+                    <i class="fa-solid fa-user text-pink-500"></i> Tentang Saya & Biodata Siswa
+                </h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Profil pribadi, rekam jejak akademik, dan dokumentasi kegiatan pembelajaran praktikum.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Biodata Card -->
+                <div class="glass-card p-6 rounded-2xl space-y-4 shadow-sm">
+                    <h2 class="text-lg font-bold text-pink-600 dark:text-pink-400 flex items-center gap-2">
+                        <i class="fa-solid fa-id-card"></i> Biodata Diri
+                    </h2>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between border-b border-pink-100 dark:border-slate-700/50 pb-2">
+                            <span class="text-slate-500">Nama Lengkap</span>
+                            <span class="font-semibold text-slate-800 dark:text-slate-200">Revlin Diga Briliantne</span>
+                        </div>
+                        <div class="flex justify-between border-b border-pink-100 dark:border-slate-700/50 pb-2">
+                            <span class="text-slate-500">Kelas</span>
+                            <span class="font-semibold text-slate-800 dark:text-slate-200">XII Informatika 1 (RPL)</span>
+                        </div>
+                        <div class="flex justify-between border-b border-pink-100 dark:border-slate-700/50 pb-2">
+                            <span class="text-slate-500">NISN</span>
+                            <span class="font-semibold font-mono text-pink-600 dark:text-pink-400">0068192039</span>
+                        </div>
+                        <div class="flex justify-between border-b border-pink-100 dark:border-slate-700/50 pb-2">
+                            <span class="text-slate-500">Minat Studi</span>
+                            <span class="font-semibold text-slate-800 dark:text-slate-200">Software Engineering</span>
+                        </div>
+                        <div class="flex justify-between pb-2">
+                            <span class="text-slate-500">Status</span>
+                            <span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">Aktif</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education & Goals -->
+                <div class="md:col-span-2 glass-card p-6 rounded-2xl space-y-4 shadow-sm">
+                    <h2 class="text-lg font-bold text-pink-600 dark:text-pink-400 flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap"></i> Riwayat & Minat
+                    </h2>
+                    <div class="space-y-4 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                        <p>
+                            Saya merupakan siswa kelas XII Sekolah Menengah Kejuruan/Atas dengan peminatan Rekayasa Perangkat Lunak (RPL). Memiliki ketertarikan tinggi terhadap pemrograman web modern, perancangan arsitektur jaringan komputer, serta sistem terintegrasi Internet of Things (IoT).
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                            <div class="p-4 rounded-xl bg-pink-100/50 dark:bg-slate-800/60 border border-pink-200 dark:border-slate-700">
+                                <h3 class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-bullseye text-pink-500 mr-2"></i>Fokus Studi Saat Ini</h3>
+                                <p class="text-xs text-slate-600 dark:text-slate-400">Pengembangan aplikasi web berbasis Tailwind CSS, pemrograman mikrokontroler Arduino C++, serta konfigurasi jaringan IP CIDR.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-pink-100/50 dark:bg-slate-800/60 border border-pink-200 dark:border-slate-700">
+                                <h3 class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-compass text-rose-500 mr-2"></i>Rencana Masa Depan</h3>
+                                <p class="text-xs text-slate-600 dark:text-slate-400">Melanjutkan studi perguruan tinggi di bidang Teknik Informatika atau berkarier sebagai Full-Stack Web Developer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dokumentasi Praktikum -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-camera text-pink-500"></i> Dokumentasi Aktivitas Praktikum Laboratorium
+                </h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <article class="glass-card rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop" alt="Praktikum Coding Web" class="w-full h-40 object-cover" onerror="this.src='https://placehold.co/600x400/0f172a/f472b6?text=Praktikum+Lab+RPL'">
+                        <div class="p-3 text-xs">
+                            <p class="font-bold text-slate-800 dark:text-slate-200">Praktikum Coding Web</p>
+                            <p class="text-slate-500 mt-0.5">Pembuatan tata letak responsif menggunakan HTML5 & CSS3.</p>
+                        </div>
+                    </article>
+                    <article class="glass-card rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition">
+                        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&auto=format&fit=crop" alt="Simulasi Jaringan Komputer" class="w-full h-40 object-cover" onerror="this.src='https://placehold.co/600x400/0f172a/38bdf8?text=Simulasi+Jaringan'">
+                        <div class="p-3 text-xs">
+                            <p class="font-bold text-slate-800 dark:text-slate-200">Simulasi Cisco Packet Tracer</p>
+                            <p class="text-slate-500 mt-0.5">Perancangan skema topologi jaringan LAN & Router.</p>
+                        </div>
+                    </article>
+                    <article class="glass-card rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition">
+                        <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=600&auto=format&fit=crop" alt="Perakitan Sensor & IoT" class="w-full h-40 object-cover" onerror="this.src='https://placehold.co/600x400/0f172a/2dd4bf?text=Perakitan+Arduino'">
+                        <div class="p-3 text-xs">
+                            <p class="font-bold text-slate-800 dark:text-slate-200">Pengujian Sensor DHT11</p>
+                            <p class="text-slate-500 mt-0.5">Perakitan sirkuit mikrokontroler dan layar LCD 1602.</p>
+                        </div>
+                    </article>
+                    <article class="glass-card rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop" alt="Diskusi Kelompok Proyek" class="w-full h-40 object-cover" onerror="this.src='https://placehold.co/600x400/0f172a/e879f9?text=Diskusi+Kelompok'">
+                        <div class="p-3 text-xs">
+                            <p class="font-bold text-slate-800 dark:text-slate-200">Kolaborasi Proyek Tim</p>
+                            <p class="text-slate-500 mt-0.5">Diskusi arsitektur software dan review repositori Git.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-jaringan" class="page-section space-y-8 hidden">
+            <div class="border-b border-pink-200 dark:border-slate-800 pb-4">
+                <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3">
+                    <i class="fa-solid fa-network-wired text-cyan-500"></i> Modul Pembelajaran Jaringan Komputer
+                </h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Dokumentasi praktikum subnetting IP address, topologi Cisco Packet Tracer, dan simulasi jaringan.</p>
+            </div>
+
+            <!-- Interactive Subnet Calculator Tool -->
+            <div class="glass-card p-6 rounded-2xl space-y-6 shadow-sm border border-cyan-200 dark:border-cyan-900/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900 dark:text-white">Interaktif: Kalkulator Subnet IP CIDR Class C</h2>
+                        <p class="text-xs text-slate-500">Alat bantu praktikum menghitung Subnet Mask, Usable Host, dan Broadcast Address.</p>
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">IP Address Contoh</label>
+                        <input id="net-ip-input" type="text" value="192.168.1.1" class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Prefix CIDR</label>
+                        <select id="net-cidr-select" class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-mono">
+                            <option value="24">/24 (255.255.255.0)</option>
+                            <option value="25">/25 (255.255.255.128)</option>
+                            <option value="26">/26 (255.255.255.192)</option>
+                            <option value="27">/27 (255.255.255.224)</option>
+                            <option value="28">/28 (255.255.255.240)</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button onclick="calculateSubnet()" class="w-full py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-semibold transition shadow-md shadow-cyan-600/30">
+                            <i class="fa-solid fa-gears mr-1"></i> Hitung Subnet
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Subnet Calculation Result Display -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 font-mono text-xs">
+                    <div class="p-3 bg-slate-950 rounded-xl text-slate-300 border border-slate-800">
+                        <span class="text-[10px] text-cyan-400 block uppercase">Subnet Mask</span>
+                        <span id="res-mask" class="font-bold">255.255.255.0</span>
+                    </div>
+                    <div class="p-3 bg-slate-950 rounded-xl text-slate-300 border border-slate-800">
+                        <span class="text-[10px] text-cyan-400 block uppercase">Usable Hosts</span>
+                        <span id="res-hosts" class="font-bold">254 IPs</span>
+                    </div>
+                    <div class="p-3 bg-slate-950 rounded-xl text-slate-300 border border-slate-800">
+                        <span class="text-[10px] text-cyan-400 block uppercase">Network Address</span>
+                        <span id="res-net" class="font-bold">192.168.1.0</span>
+                    </div>
+                    <div class="p-3 bg-slate-950 rounded-xl text-slate-300 border border-slate-800">
+                        <span class="text-[10px] text-cyan-400 block uppercase">Broadcast Address</span>
+                        <span id="res-broad" class="font-bold">192.168.1.255</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Draft Cards for Cisco Packet Tracer -->
+            <div class="grid sm:grid-cols-2 gap-6">
+                <div class="glass-card p-5 rounded-2xl space-y-3">
+                    <span class="px-2.5 py-1 bg-cyan-100 text-cyan-700 dark:bg-cyan-950 dark:text-cyan-300 text-[10px] font-bold rounded-full">Praktikum 1</span>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base">Topologi LAN Lab Komputer</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400">Pengoperasian Switch Catalyst dan konfigurasi IP statis untuk 20 workstation di laboratorium sekolah.</p>
+                </div>
+                <div class="glass-card p-5 rounded-2xl space-y-3">
+                    <span class="px-2.5 py-1 bg-cyan-100 text-cyan-700 dark:bg-cyan-950 dark:text-cyan-300 text-[10px] font-bold rounded-full">Praktikum 2</span>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base">Routing Statis MikroTik RouterOS</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400">Konfigurasi Gateway internet, NAT Masquerade, serta pengujian ping konektivitas antar-VLAN.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-iot-arduino" class="page-section space-y-8 hidden">
+            <div class="border-b border-pink-200 dark:border-slate-800 pb-4">
+                <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3">
+                    <i class="fa-solid fa-microchip text-teal-500"></i> Modul Internet of Things & Arduino
+                </h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Dokumentasi perakitan sensor, pemrograman mikrokontroler C++, dan simulator hardware.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Hardware Simulator -->
+                <div class="glass-card p-6 rounded-2xl space-y-5 border border-teal-200 dark:border-teal-900/50 shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-hard-drive text-teal-400"></i> Simulator LCD 1602 & DHT11
+                        </h2>
+                        <button id="btn-power-iot" onclick="toggleIoTPower()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold shadow transition">
+                            <i class="fa-solid fa-power-off mr-1"></i> Power ON
+                        </button>
+                    </div>
+
+                    <!-- Virtual LCD Screen -->
+                    <div class="bg-emerald-900 border-4 border-emerald-950 p-4 rounded-xl font-mono text-emerald-300 shadow-inner space-y-1 text-sm tracking-widest">
+                        <div id="lcd-line-1" class="truncate">Temp: 28.5 C</div>
+                        <div id="lcd-line-2" class="truncate">Humid: 65% [OK]</div>
+                    </div>
+
+                    <!-- Sensor Adjustment Sliders -->
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>Simulasi Suhu (DHT11)</span>
+                                <span id="temp-val-display" class="text-teal-500 font-mono">28.5 °C</span>
+                            </div>
+                            <input id="slider-temp" type="range" min="15" max="50" value="28.5" step="0.5" oninput="updateIoTSimulation()" class="w-full accent-teal-500 cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>Simulasi Kelembapan</span>
+                                <span id="humid-val-display" class="text-teal-500 font-mono">65 %</span>
+                            </div>
+                            <input id="slider-humid" type="range" min="20" max="90" value="65" oninput="updateIoTSimulation()" class="w-full accent-teal-500 cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- C++ Code Display -->
+                <div class="glass-card p-6 rounded-2xl space-y-3 border border-slate-700 bg-slate-950 text-slate-100 shadow-sm flex flex-col justify-between">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-xs font-mono text-teal-400"><i class="fa-solid fa-code mr-1"></i> main_sensor_dht.ino</span>
+                        <button onclick="copyCodeSnippet('cpp-code-block')" class="text-[11px] text-pink-300 hover:text-pink-200"><i class="fa-solid fa-copy mr-1"></i>Salin Kode</button>
+                    </div>
+                    <pre class="font-mono text-xs text-emerald-400 overflow-x-auto p-2 bg-slate-900 rounded-lg leading-relaxed"><code id="cpp-code-block">#include &lt;DHT.h&gt;
+#include &lt;LiquidCrystal_I2C.h&gt;
+
+#define DHTPIN 2
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  lcd.init();
+  lcd.backlight();
+  dht.begin();
+}
+
+void loop() {
+  float temp = dht.readTemperature();
+  float humid = dht.readHumidity();
+  
+  lcd.setCursor(0,0);
+  lcd.print("Temp: "); lcd.print(temp);
+  delay(2000);
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-karya-proyek" class="page-section space-y-8 hidden">
+            <div class="border-b border-pink-200 dark:border-slate-800 pb-4">
+                <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3">
+                    <i class="fa-solid fa-lightbulb text-fuchsia-500"></i> Galeri Proyek Digital Siswa
+                </h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Dokumentasi hasil karya tugas praktikum dan proyek kolaborasi perangkat lunak.</p>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="flex flex-wrap gap-2">
+                <button onclick="filterProjects('all')" class="px-4 py-2 rounded-xl text-xs font-semibold bg-pink-600 text-white shadow">Semua Proyek</button>
+                <button onclick="filterProjects('web')" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-pink-100">Web App</button>
+                <button onclick="filterProjects('iot')" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-pink-100">IoT Hardware</button>
+                <button onclick="filterProjects('network')" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-pink-100">Jaringan</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <article class="project-card glass-card rounded-2xl overflow-hidden shadow-sm space-y-3 p-4 hover:shadow-md transition" data-category="web">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop" alt="Portofolio Digital XII" class="w-full h-40 object-cover rounded-xl" onerror="this.src='https://placehold.co/600x350/0f172a/ec4899?text=Web+Portofolio+XII'">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-pink-100 text-pink-700 dark:bg-pink-950 dark:text-pink-300">Web App</span>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base">Portofolio Digital XII</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400">Website portofolio modular berstandar industri berbasis HTML5 & External CSS.</p>
+                </article>
+                <article class="project-card glass-card rounded-2xl overflow-hidden shadow-sm space-y-3 p-4 hover:shadow-md transition" data-category="iot">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop" alt="Sistem Monitoring Suhu IoT" class="w-full h-40 object-cover rounded-xl" onerror="this.src='https://placehold.co/600x350/0f172a/14b8a6?text=Sistem+Monitoring+Suhu'">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-100 text-teal-700 dark:bg-teal-950 dark:text-teal-300">IoT Hardware</span>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base">Monitoring Suhu Ruangan</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400">Sistem pendeteksi suhu dan kelembapan real-time berbasis ESP32 dan LCD.</p>
+                </article>
+                <article class="project-card glass-card rounded-2xl overflow-hidden shadow-sm space-y-3 p-4 hover:shadow-md transition" data-category="network">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop" alt="Simulasi Topologi Jaringan" class="w-full h-40 object-cover rounded-xl" onerror="this.src='https://placehold.co/600x350/0f172a/06b6d4?text=Topologi+VLAN+Sekolah'">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-100 text-cyan-700 dark:bg-cyan-950 dark:text-cyan-300">Jaringan</span>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base">Desain Topologi VLAN</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400">Simulasi pembagian segmen jaringan lab sekolah di Cisco Packet Tracer.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="sec-kontak" class="page-section space-y-8 hidden">
+            <div class="border-b border-pink-200 dark:border-slate-800 pb-4">
+                <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-3">
+                    <i class="fa-solid fa-envelope text-rose-500"></i> Formulir Kontak & Pesan
+                </h1>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Kirimkan pertanyaan, saran, atau peluang kolaborasi proyek.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Form Area -->
+                <div class="md:col-span-2 glass-card p-6 rounded-2xl shadow-sm">
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Nama Pengirim</label>
+                            <input id="contact-name" type="text" placeholder="Masukkan nama Anda" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-pink-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Alamat Email</label>
+                            <input id="contact-email" type="email" placeholder="nama@email.com" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-pink-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Kategori Pesan</label>
+                            <select id="contact-category" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-pink-500 outline-none">
+                                <option value="Pertanyaan">Pertanyaan Pembelajaran</option>
+                                <option value="Kolaborasi">Kolaborasi Proyek</option>
+                                <option value="Saran">Saran & Masukan</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Pesan Teks</label>
+                            <textarea id="contact-msg" rows="4" placeholder="Tuliskan pesan Anda..." required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-pink-500 outline-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-500 hover:to-rose-400 text-white font-semibold text-xs shadow-lg shadow-pink-600/30 transition">
+                            <i class="fa-solid fa-paper-plane mr-2"></i>Kirim Pesan
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Info Sidebar -->
+                <div class="glass-card p-6 rounded-2xl space-y-4 shadow-sm h-fit">
+                    <h2 class="text-base font-bold text-slate-900 dark:text-white border-b border-pink-100 dark:border-slate-700 pb-2">Kontak Sekolah</h2>
+                    <div class="space-y-3 text-xs text-slate-600 dark:text-slate-400">
+                        <p class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-pink-500"></i> Laboratorium Komputer RPL / Informatika</p>
+                        <p class="flex items-center gap-2"><i class="fa-solid fa-envelope text-pink-500"></i> revlindiga@sekolah.sch.id</p>
+                        <p class="flex items-center gap-2"><i class="fa-solid fa-phone text-pink-500"></i> +62 812-3456-7890</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL 1: INSPEKTOR STRUKTUR FOLDER MODULAR -->
+    <div id="modal-folder" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="p-4 bg-slate-950 border-b border-slate-800 flex justify-between items-center text-white">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-folder-tree text-pink-400"></i>
+                    <h3 class="font-bold text-sm">Inspektor Standar Struktur Folder & Manajemen Aset (Wajib)</h3>
+                </div>
+                <button onclick="toggleFolderStructureModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto font-mono text-xs text-slate-300 space-y-4">
+                <p class="text-slate-400">Struktur folder wajib <code class="text-pink-300 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">portofolio-namasiswa</code> sesuai standar industri:</p>
+
+                <!-- Tampilan Pohon Folder Eksak Sesuai Gambar -->
+                <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 overflow-x-auto leading-relaxed text-emerald-400 font-mono text-[11px] sm:text-xs">
+<pre class="select-all">portofolio-namasiswa/
+|
+|-- index.html              <span class="text-slate-500 font-sans">&lt;-- Halaman Utama (Beranda / Profil Ringkas)</span>
+|
+|-- assets/                 <span class="text-slate-500 font-sans">&lt;-- Tempat semua berkas pendukung</span>
+|   |-- css/
+|   |   `-- style.css       <span class="text-slate-500 font-sans">&lt;-- File External CSS Utama</span>
+|   |-- js/
+|   |   `-- script.js       <span class="text-slate-500 font-sans">&lt;-- File JavaScript (opsional / untuk tahap lanjut)</span>
+|   |-- img/                <span class="text-slate-500 font-sans">&lt;-- Semua gambar & ikon</span>
+|   |   |-- profil.jpg      <span class="text-slate-500 font-sans">&lt;-- Foto diri formal/semi-formal</span>
+|   |   |-- banner.jpg      <span class="text-slate-500 font-sans">&lt;-- Banner header</span>
+|   |   `-- projects/       <span class="text-slate-500 font-sans">&lt;-- Foto dokumentasi karya & tugas</span>
+|   `-- docs/               <span class="text-slate-500 font-sans">&lt;-- Tempat file download (CV/Laporan PDF jika ada)</span>
+|
+`-- pages/                  <span class="text-slate-500 font-sans">&lt;-- Halaman modular masa depan</span>
+    |-- tentang.html        <span class="text-slate-500 font-sans">&lt;-- Biodata & Profil Lengkap</span>
+    |-- jaringan.html       <span class="text-slate-500 font-sans">&lt;-- Portofolio Bab Jaringan Komputer & Topologi</span>
+    |-- iot-arduino.html    <span class="text-slate-500 font-sans">&lt;-- Portofolio Bab IoT & Simulasi Arduino</span>
+    |-- karya-proyek.html   <span class="text-slate-500 font-sans">&lt;-- Galeri Proyek Digital & Portofolio Karya</span>
+    `-- kontak.html         <span class="text-slate-500 font-sans">&lt;-- Form Kontak & Media Sosial</span></pre>
+                </div>
+
+                <div class="bg-pink-950/40 border border-pink-800 p-3 rounded-xl text-pink-200 font-sans space-y-1">
+                    <strong class="block text-xs font-bold text-pink-300"><i class="fa-solid fa-circle-info mr-1"></i> Aturan Standar Aset & Relatif Linking Path:</strong>
+                    <ul class="list-disc pl-4 space-y-1 text-[11px]">
+                        <li><strong>External CSS Wajib:</strong> Semua styling 100% wajib menggunakan External CSS (<code>assets/css/style.css</code>). Dilarang memakai Inline CSS.</li>
+                        <li><strong>Penamaan File/Folder:</strong> Gunakan huruf kecil dan tanda hubung tanpa spasi (contoh: <code>iot-arduino.html</code>, <code>profil.jpg</code>).</li>
+                        <li>Di <code>index.html</code>: CSS diakses via <code>&lt;link rel="stylesheet" href="assets/css/style.css"&gt;</code></li>
+                        <li>Di folder <code>pages/*.html</code>: CSS diakses via <code>&lt;link rel="stylesheet" href="../assets/css/style.css"&gt;</code></li>
+                        <li>Tautan kembali ke beranda dari <code>pages/</code>: <code>&lt;a href="../index.html"&gt;Beranda&lt;/a&gt;</code></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="p-4 bg-slate-950 border-t border-slate-800 text-right">
+                <button onclick="toggleFolderStructureModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-semibold">Tutup Inspektor</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: PANDUAN DEPLOYMENT -->
+    <div id="modal-deploy" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="p-4 bg-slate-950 border-b border-slate-800 flex justify-between items-center text-white">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up text-emerald-400"></i>
+                    <h3 class="font-bold text-sm">Langkah Publikasi (Deployment GitHub Pages / Netlify)</h3>
+                </div>
+                <button onclick="toggleDeploymentModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto text-xs text-slate-300 space-y-4">
+                <ol class="space-y-3 list-decimal pl-4">
+                    <li>
+                        <strong class="text-white block">1. Verifikasi Lokal</strong>
+                        Pastikan seluruh file HTML (index.html, pages/*.html) dan CSS (assets/css/style.css) telah diverifikasi tanpa broken link.
+                    </li>
+                    <li>
+                        <strong class="text-white block">2. Inisialisasi Git & Commit</strong>
+                        Jalankan perintah Git di terminal folder proyek:
+                        <code class="block bg-slate-950 p-2 rounded mt-1 font-mono text-emerald-400">git init<br>git add .<br>git commit -m "Initial commit portofolio XII"</code>
+                    </li>
+                    <li>
+                        <strong class="text-white block">3. Push ke GitHub Repository</strong>
+                        Buat repository publik bernama <span class="font-mono text-cyan-300">portofolio-namasiswa</span> di GitHub, lalu hubungkan remote repo dan push branch main.
+                    </li>
+                    <li>
+                        <strong class="text-white block">4. Aktifkan GitHub Pages</strong>
+                        Buka Settings &gt; Pages &gt; pilih Source Branch: <span class="font-mono text-emerald-400">main / root</span>. Klik Save. Website aktif dalam 1-2 menit!
+                    </li>
+                </ol>
+            </div>
+            <div class="p-4 bg-slate-950 border-t border-slate-800 text-right">
+                <button onclick="toggleDeploymentModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-semibold">Tutup Panduan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 py-8 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded bg-pink-600 flex items-center justify-center text-white font-bold text-xs">RD</div>
+                <span>© 2026 Portofolio Digital Kelas XII Revlin Diga Briliantne — Peminatan Informatika / RPL</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" onclick="showToast('Buka Akun GitHub'); return false;" class="hover:text-white transition"><i class="fa-brands fa-github text-base"></i></a>
+                <a href="#" onclick="showToast('Buka Akun LinkedIn'); return false;" class="hover:text-white transition"><i class="fa-brands fa-linkedin text-base"></i></a>
+                <a href="#" onclick="showToast('Buka Instagram Sekolah'); return false;" class="hover:text-white transition"><i class="fa-brands fa-instagram text-base"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const pageRoutes = {
+            'index.html': { id: 'sec-index', path: 'portofolio-revlin/index.html' },
+            'pages/tentang.html': { id: 'sec-tentang', path: 'portofolio-revlin/pages/tentang.html' },
+            'pages/jaringan.html': { id: 'sec-jaringan', path: 'portofolio-revlin/pages/jaringan.html' },
+            'pages/iot-arduino.html': { id: 'sec-iot-arduino', path: 'portofolio-revlin/pages/iot-arduino.html' },
+            'pages/karya-proyek.html': { id: 'sec-karya-proyek', path: 'portofolio-revlin/pages/karya-proyek.html' },
+            'pages/kontak.html': { id: 'sec-kontak', path: 'portofolio-revlin/pages/kontak.html' }
+        };
+
+        let iotPower = true;
+
+        function navigateTo(targetPath) {
+            const route = pageRoutes[targetPath];
+            if (!route) return;
+
+            document.querySelectorAll('.page-section').forEach(sec => {
+                sec.classList.add('hidden');
+            });
+
+            const targetEl = document.getElementById(route.id);
+            if (targetEl) {
+                targetEl.classList.remove('hidden');
+            }
+
+            const pathDisplay = document.getElementById('current-file-path');
+            if (pathDisplay) {
+                pathDisplay.textContent = route.path;
+            }
+
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                if (btn.getAttribute('data-path') === targetPath) {
+                    btn.classList.add('active', 'text-pink-400');
+                    btn.classList.remove('text-slate-300');
+                } else {
+                    btn.classList.remove('active', 'text-pink-400');
+                    btn.classList.add('text-slate-300');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+
+        function calculateSubnet() {
+            const ip = document.getElementById('net-ip-input').value || '192.168.1.1';
+            const cidr = document.getElementById('net-cidr-select').value;
+            
+            const masks = {
+                '24': { mask: '255.255.255.0', hosts: '254 Usable IPs', broad: '.255' },
+                '25': { mask: '255.255.255.128', hosts: '126 Usable IPs', broad: '.127' },
+                '26': { mask: '255.255.255.192', hosts: '62 Usable IPs', broad: '.63' },
+                '27': { mask: '255.255.255.224', hosts: '30 Usable IPs', broad: '.31' },
+                '28': { mask: '255.255.255.240', hosts: '14 Usable IPs', broad: '.15' }
+            };
+
+            const data = masks[cidr];
+            const baseParts = ip.split('.').slice(0, 3).join('.');
+
+            document.getElementById('res-mask').textContent = data.mask;
+            document.getElementById('res-hosts').textContent = data.hosts;
+            document.getElementById('res-net').textContent = `${baseParts}.0`;
+            document.getElementById('res-broad').textContent = `${baseParts}${data.broad}`;
+
+            showToast(`Subnet /${cidr} Berhasil Dikalkulasi`);
+        }
+
+        function updateIoTSimulation() {
+            if (!iotPower) return;
+
+            const temp = parseFloat(document.getElementById('slider-temp').value).toFixed(1);
+            const humid = document.getElementById('slider-humid').value;
+
+            document.getElementById('temp-val-display').textContent = `${temp} °C`;
+            document.getElementById('humid-val-display').textContent = `${humid} %`;
+
+            const lcd1 = document.getElementById('lcd-line-1');
+            const lcd2 = document.getElementById('lcd-line-2');
+
+            lcd1.textContent = `Temp: ${temp} C`;
+            if (temp > 35) {
+                lcd2.textContent = `Humid: ${humid}% [HOT!]`;
+            } else {
+                lcd2.textContent = `Humid: ${humid}% [OK]`;
+            }
+        }
+
+        function toggleIoTPower() {
+            iotPower = !iotPower;
+            const btn = document.getElementById('btn-power-iot');
+            const lcd1 = document.getElementById('lcd-line-1');
+            const lcd2 = document.getElementById('lcd-line-2');
+
+            if (iotPower) {
+                btn.className = "px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold shadow transition";
+                btn.innerHTML = '<i class="fa-solid fa-power-off mr-1"></i> Power ON';
+                updateIoTSimulation();
+                showToast("Daya Sensor IoT dinyalakan");
+            } else {
+                btn.className = "px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-xl text-xs font-semibold shadow transition";
+                btn.innerHTML = '<i class="fa-solid fa-power-off mr-1"></i> Power OFF';
+                lcd1.textContent = "[SYSTEM OFF]";
+                lcd2.textContent = "Power Disconnected";
+                showToast("Daya Sensor IoT dimatikan");
+            }
+        }
+
+        function filterProjects(cat) {
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-category') === cat) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            showToast(`Menampilkan kategori proyek: ${cat.toUpperCase()}`);
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const cat = document.getElementById('contact-category').value;
+
+            showToast(`Terima kasih ${name}! Pesan kategori "${cat}" berhasil terkirim.`);
+            document.getElementById('contact-form').reset();
+        }
+
+        function toggleFolderStructureModal() {
+            const modal = document.getElementById('modal-folder');
+            modal.classList.toggle('hidden');
+        }
+
+        function toggleDeploymentModal() {
+            const modal = document.getElementById('modal-deploy');
+            modal.classList.toggle('hidden');
+        }
+
+        function copyCodeSnippet(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = text;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+            showToast('Baris kode C++ berhasil disalin ke clipboard');
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-slate-900 border border-slate-700 text-white text-xs px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 transform transition-all duration-300 pointer-events-auto opacity-0 translate-y-2';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-pink-400"></i> <span>${msg}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-2');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            themeToggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                const isDark = document.documentElement.classList.contains('dark');
+                themeToggleBtn.innerHTML = isDark 
+                    ? '<i class="fa-solid fa-sun text-sm text-yellow-400"></i>' 
+                    : '<i class="fa-solid fa-moon text-sm"></i>';
+                showToast(`Mode Tampilan: ${isDark ? 'Gelap (Dark)' : 'Terang (Light)'}`);
+            });
+
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            navigateTo('index.html');
+        });
+    </script>
+</body>
+</html>
